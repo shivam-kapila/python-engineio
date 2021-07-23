@@ -374,15 +374,18 @@ class Server(object):
                 # if 'websocket', the HTTP_UPGRADE header must match.
                 upgrade_header = environ.get('HTTP_UPGRADE').lower() \
                     if 'HTTP_UPGRADE' in environ else None
+                self._log_error_once(environ, 'bad-transport')
+                self._log_error_once(
+                    'Environ' + str(environ), 'bad-transport')
                 if transport == 'polling' \
-                        or transport == upgrade_header == 'websocket':
+                        or transport == 'websocket':
                     r = self._handle_connect(environ, start_response,
                                              transport, jsonp_index)
                 else:
                     self._log_error_once('Invalid transport ' + transport,
                                          'bad-transport')
                     self._log_error_once(
-                        'Header' + upgrade_header, 'bad-transport')
+                        'Header' + (upgrade_header or '123'), 'bad-transport')
                     self._log_error_once(
                         'Transport' + transport, 'bad-transport')
                     r = self._bad_request(
