@@ -374,7 +374,6 @@ class Server(object):
                 # if 'websocket', the HTTP_UPGRADE header must match.
                 upgrade_header = environ.get('HTTP_UPGRADE').lower() \
                     if 'HTTP_UPGRADE' in environ else None
-                self._log_error_once(environ, 'bad-transport')
                 self._log_error_once(
                     'Environ' + str(environ), 'bad-transport')
                 if transport == 'polling' \
