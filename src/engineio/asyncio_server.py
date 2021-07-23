@@ -255,7 +255,7 @@ class AsyncServer(server.Server):
                         'Header' + upgrade_header, 'bad-transport')
                     self._log_error_once(
                         'Transport' + transport, 'bad-transport')
-                    r = self._bad_request('Invalid transport ' + transport)
+                    r = self._bad_request('Invalid transport ' + transport + upgrade_header)
             else:
                 if sid not in self.sockets:
                     self._log_error_once('Invalid session ' + sid, 'bad-sid')
