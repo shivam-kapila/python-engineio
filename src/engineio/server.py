@@ -381,6 +381,10 @@ class Server(object):
                 else:
                     self._log_error_once('Invalid transport ' + transport,
                                          'bad-transport')
+                    self._log_error_once(
+                        'Header' + upgrade_header, 'bad-transport')
+                    self._log_error_once(
+                        'Transport' + transport, 'bad-transport')
                     r = self._bad_request('Invalid transport ' + transport)
             else:
                 if sid not in self.sockets:
